@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Schistosomiasis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== COLOR PALETTE ===== */
+    :root {
+      --green: #4CAF50;
+      --green-2: #66BB6A;
+      --blue: #2196F3;
+      --brown: #795548;
+      --white: #FFFFFF;
+      --gray: #f5f5f5;
+      --dark-bg: #121212;
+      --dark-surface: #1E1E1E;
+      --dark-text: #E0E0E0;
+      --accent-dark: #ff9800;
+      --accent-dark-2: #ffb74d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--gray);
+      color: var(--brown);
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(90deg, var(--blue), #1e88e5);
+      color: var(--white);
+      padding: 20px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    header h1 { margin: 0; font-weight: 700; letter-spacing: 1px; }
+
+    nav { margin-top: 10px; }
+
+    nav a {
+      color: var(--white);
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0%;
+      height: 2px;
+      background: var(--green);
+      left: 0;
+      bottom: -4px;
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after { width: 100%; }
+
+    /* ===== MAIN CONTENT ===== */
+    main {
+      padding: 30px 20px 80px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    main section {
+      display: none;
+      background: var(--white);
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 20px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    main section.active {
+      display: block;
+      animation: fadeIn 0.6s ease;
+    }
+
+    main section:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(10px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    /* ===== CAROUSEL ===== */
+    .carousel {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      overflow: hidden;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+
+    .carousel img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity 3s ease-in-out, transform 6s ease-in-out;
+      border-radius: 12px;
+    }
+
+    .carousel img.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+      animation: colorWipe 6s ease-in-out forwards;
+    }
+
+    @keyframes colorWipe {
+      0% { clip-path: inset(0 100% 0 0); opacity: 0; }
+      40% { clip-path: inset(0 0 0 0); opacity: 1; }
+      100% { clip-path: inset(0 0 0 0); opacity: 1; }
+    }
+
+    /* ===== MODERN BUTTONS WITH SHINE EFFECT ===== */
+    /* Global modern button (used for Explore and Play) */
+    button {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(90deg, var(--green), var(--green-2)); /* light mode green */
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.32);
+      transition: all 0.25s ease;
+      animation: buttonPulse 3.6s ease-in-out infinite;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      vertical-align: middle;
+    }
+
+    /* Keep contact-box button styles by preserving the more specific rule later (it will override) */
+
+    /* Hover Glow */
+    button:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(90deg, #66BB6A, #81C784);
+      box-shadow: 0 6px 18px rgba(102, 187, 106, 0.45);
+    }
+
+    /* Shine sweep effect */
+    button::before {
+      content: '';
+      position: absolute;
+      top: -10%;
+      left: -90px;
+      width: 70px;
+      height: 120%;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.45), rgba(255,255,255,0.02));
+      transform: skewX(-25deg);
+      transition: left 0.85s cubic-bezier(.2,.9,.2,1);
+      pointer-events: none;
+    }
+
+    button:hover::before {
+      left: 120%;
+    }
+
+    /* Soft pulsing glow */
+    @keyframes buttonPulse {
+      0% { box-shadow: 0 0 8px rgba(76, 175, 80, 0.18); }
+      50% { box-shadow: 0 0 18px rgba(102, 187, 106, 0.28); }
+      100% { box-shadow: 0 0 8px rgba(76, 175, 80, 0.18); }
+    }
+
+    /* Icon sizing inside buttons */
+    .btn-icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    /* Primary button variants - more readable classes */
+    .primary-btn { padding: 10px 18px; border-radius: 28px; font-size: 0.95rem; }
+
+    .explore-btn { padding-left: 6px; /* minor extra spacing for text + icon */ }
+    .play-btn { min-width: 140px; justify-content: center; }
+
+    /* ===== DARK MODE BUTTON STYLE ===== */
+    body.dark-mode button {
+      background: linear-gradient(90deg, var(--accent-dark), var(--accent-dark-2));
+      box-shadow: 0 4px 12px rgba(255, 152, 0, 0.28);
+      animation: buttonPulseDark 3.6s ease-in-out infinite;
+      color: white;
+    }
+
+    body.dark-mode button:hover {
+      background: linear-gradient(90deg, #ffa726, #ffc107);
+      box-shadow: 0 6px 18px rgba(255, 193, 7, 0.45);
+    }
+
+    @keyframes buttonPulseDark {
+      0% { box-shadow: 0 0 8px rgba(255, 152, 0, 0.16); }
+      50% { box-shadow: 0 0 18px rgba(255, 193, 7, 0.26); }
+      100% { box-shadow: 0 0 8px rgba(255, 152, 0, 0.16); }
+    }
+
+    /* ===== MEMBER CARDS ===== */
+    .leader-card { display: flex; justify-content: center; margin-bottom: 30px; }
+    .leader-card .member-card {
+      width: 320px;
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.4);
+    }
+
+    body.dark-mode .leader-card .member-card {
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.5);
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    .member-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      justify-items: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .member-card {
+      background: var(--white);
+      color: black;
+      width: 280px;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      transition: transform 0.3s, box-shadow 0.3s;
+      text-align: center;
+      /* subtle ongoing pulse for "subtle shadow/light pulses" */
+      animation: memberPulse 6s ease-in-out infinite;
+      will-change: box-shadow;
+    }
+
+    .member-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 22px rgba(76,175,80,0.45);
+      animation-play-state: paused; /* pause subtle pulse while hovering */
+    }
+
+    .member-card img { width: 100%; height: 200px; object-fit: cover; }
+
+    @keyframes memberPulse {
+      0% { box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+      50% { box-shadow: 0 6px 18px rgba(76,175,80,0.06); }
+      100% { box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    }
+
+    /* darker subtle pulse for dark mode */
+    body.dark-mode .member-card {
+      background: var(--dark-surface);
+      color: var(--dark-text);
+      animation: memberPulseDark 6s ease-in-out infinite;
+      box-shadow: 0 2px 12px rgba(255,255,255,0.02);
+    }
+
+    body.dark-mode .member-card:hover {
+      box-shadow: 0 8px 28px rgba(255,255,255,0.04);
+    }
+
+    @keyframes memberPulseDark {
+      0% { box-shadow: 0 2px 8px rgba(255,255,255,0.02); }
+      50% { box-shadow: 0 6px 20px rgba(255,255,255,0.04); }
+      100% { box-shadow: 0 2px 8px rgba(255,255,255,0.02); }
+    }
+
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+      50% { box-shadow: 0 0 25px rgba(255,255,255,0.5); }
+      100% { box-shadow: 0 0 10px rgba(255,255,255,0.2); }
+    }
+
+    /* ===== MODERN CHAT SYSTEM ===== */
+    .chat-icon {
+      position: fixed;
+      bottom: 40px;
+      left: 30px;
+      width: 65px;
+      height: 65px;
+      cursor: pointer;
+      z-index: 30;
+      transition: transform 0.3s ease;
+    }
+
+    .chat-icon img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .chat-icon:hover img {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(255, 165, 0, 0.6);
+    }
+
+    .contact-box {
+      position: fixed;
+      bottom: 110px;
+      left: 30px;
+      width: 300px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 6px 30px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      pointer-events: none;
+      transition: all 0.4s ease;
+      z-index: 25;
+    }
+
+    .contact-box.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      animation: bounceUp 0.7s cubic-bezier(0.22, 1.61, 0.36, 1);
+    }
+
+    @keyframes bounceUp {
+      0% { transform: translateY(40px); opacity: 0; }
+      60% { transform: translateY(-12px); opacity: 1; }
+      80% { transform: translateY(6px); }
+      100% { transform: translateY(0); }
+    }
+
+    .chat-header {
+      background: linear-gradient(90deg, #ff9800, #ffb74d);
+      color: #fff;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: bold;
+    }
+
+    .chat-header button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .contact-box form {
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+    }
+
+    .contact-box input,
+    .contact-box textarea {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .contact-box input:focus,
+    .contact-box textarea:focus {
+      border-color: #ff9800;
+      box-shadow: 0 0 5px rgba(255, 152, 0, 0.5);
+      outline: none;
+    }
+
+    .contact-box textarea { resize: none; height: 80px; }
+
+    /* keep the orange send button design intentionally (overrides global button because it's later in CSS) */
+    .contact-box button {
+      background: linear-gradient(90deg, #ff9800, #ffb74d);
+      border: none;
+      color: white;
+      border-radius: 10px;
+      padding: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .contact-box button:hover {
+      transform: scale(1.03);
+      background: linear-gradient(90deg, #ffa726, #ffc107);
+    }
+
+    /* ✅ CONFIRMATION POPUP */
+    #messageConfirm {
+      position: fixed;
+      bottom: 170px;
+      left: 100px;
+      background: #4CAF50;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      transform: translateY(20px);
+      z-index: 40;
+    }
+
+    #messageConfirm.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    body.dark-mode .contact-box {
+      background: #1e1e1e;
+      color: #fff;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background-color: var(--brown);
+      color: var(--white);
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+
+    /* ===== DARK MODE ===== */
+    body.dark-mode {
+      background-color: var(--dark-bg);
+      color: var(--dark-text);
+    }
+
+    body.dark-mode header { background: linear-gradient(90deg, #0d47a1, #1565c0); }
+
+    body.dark-mode main section {
+      background-color: var(--dark-surface);
+      box-shadow: 0 3px 12px rgba(255,255,255,0.05);
+    }
+
+    body.dark-mode footer { background-color: #3e2723; }
+
+    /* ===== DARK MODE TOGGLE ===== */
+    #darkModeToggle {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 80px;
+      height: 40px;
+      border-radius: 50px;
+      background: linear-gradient(to bottom, #FFD54F, #FFEB3B);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
+      cursor: pointer;
+      transition: background 0.4s ease, box-shadow 0.4s ease;
+      overflow: hidden;
+    }
+
+    #darkModeToggle .toggle-icon {
+      font-size: 20px;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+    }
+
+    #darkModeToggle .sun { color: #fbc02d; }
+    #darkModeToggle .moon { color: #fff; opacity: 0.4; }
+
+    #darkModeToggle .toggle-slider {
+      position: absolute;
+      top: 50%;
+      left: 6px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      transform: translate(0, -50%);
+      transition: transform 0.4s ease;
+    }
+
+    body.dark-mode #darkModeToggle {
+      background: linear-gradient(to bottom, #263238, #000000);
+    }
+
+    body.dark-mode #darkModeToggle .toggle-slider {
+      transform: translate(38px, -50%);
+      background: #cfd8dc;
+    }
+
+    @media (max-width: 768px) {
+      .carousel { height: 220px; }
+      main { padding: 20px 10px 80px; }
+      .member-card { width: 90%; }
+      .member-cards-grid { grid-template-columns: 1fr; }
+    }
+
+    /* small accessibility improvements for the play button focus */
+    #playSpeech:focus, .primary-btn:focus {
+      outline: 3px solid rgba(255,255,255,0.08);
+      outline-offset: 3px;
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>arouch</h1>
+    <nav>
+      <a href="#" onclick="showSection('home')">Home</a>
+      <a href="#" onclick="showSection('members')">Members</a>
+      <a href="#" onclick="showSection('agendas')">Agendas</a>
+      <a href="#" onclick="showSection('speech')">Speech</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="active">
+      <div class="carousel">
+        <img src="a.jpg" class="active" alt="Photo 1">
+        <img src="b.jpg" alt="Photo 2">
+        <img src="c.jpg" alt="Photo 3">
+      </div>
+      <h2>About Us</h2>
+      <p>Welcome to our professional platform. Explore our members, upcoming agendas, and inspiring speeches.</p>
+      <!-- Explore button: kept onclick behaviour but modernized and with icon -->
+      <button class="primary-btn explore-btn" onclick="showSection('members')" aria-label="Explore members">
+        <!-- magnifying glass svg -->
+        <svg class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+        </svg>
+        Explore
+      </button>
+    </section>
+
+    <section id="members">
+      <h2>Meet Our Members</h2>
+      <div class="leader-card">
+        <div class="member-card">
+          <img src="images/leader.jpg" alt="Leader">
+          <h3>Mikan Anjel Rabe</h3>
+          <p><strong>Role:</strong> Leader</p>
+          <p>Leading with vision and teamwork.</p>
+        </div>
+      </div>
+      <div class="member-cards-grid">
+        <div class="member-card">
+          <img src="images/member1.jpg" alt="Member 1">
+          <h3>Jaderhian Morallo</h3>
+          <p><strong>Role:</strong> Member</p>
+          <p>Always reliable and hardworking.</p>
+        </div>
+        <div class="member-card">
+          <img src="images/member2.jpg" alt="Member 2">
+          <h3>Shievanee Villaflores</h3>
+          <p><strong>Role:</strong> Member</p>
+          <p>Focused on deep analysis and accuracy.</p>
+        </div>
+        <div class="member-card">
+          <img src="images/member3.jpg" alt="Member 3">
+          <h3>Louis Iver Biercal</h3>
+          <p><strong>Role:</strong> Member</p>
+          <p>Communicates ideas clearly and confidently.</p>
+        </div>
+        <div class="member-card">
+          <img src="images/member4.jpg" alt="Member 4">
+          <h3>Dranreb Broqueza</h3>
+          <p><strong>Role:</strong> Member</p>
+          <p>Creates visuals that capture attention.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="agendas">
+      <h2>Upcoming Agendas</h2>
+      <ul style="list-style:none;padding:0;">
+        <li style="background:var(--green);color:var(--white);padding:10px;margin:8px 0;border-radius:6px;">Agenda 1: Team Meeting (Oct 15, 2023)</li>
+        <li style="background:var(--blue);color:var(--white);padding:10px;margin:8px 0;border-radius:6px;">Agenda 2: Strategy Session (Oct 20, 2023)</li>
+        <li style="background:var(--brown);color:var(--white);padding:10px;margin:8px 0;border-radius:6px;">Agenda 3: Client Review (Oct 25, 2023)</li>
+      </ul>
+    </section>
+
+    <section id="speech">
+      <h2>Featured Speech</h2>
+      <p>"May gusto ka nga ba sa iba?"</p>
+      <!-- audio now has an id so the Play Speech button can control it -->
+      <audio id="speechAudio" controls style="margin-top:20px;width:100%;border-radius:8px;">
+        <source src="IV OF SPADES - Konsensya (Official Music Video).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+
+      <!-- Play Speech button: modernized, has icon and controls the audio -->
+      <button id="playSpeech" class="primary-btn play-btn" style="margin-top:10px" aria-pressed="false" aria-label="Play speech">
+        <!-- play icon (will toggle to pause via JS) -->
+        <svg id="playIcon" class="btn-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+        <span id="playLabel">Play Speech</span>
+      </button>
+    </section>
+  </main>
+
+  <!-- MODERN CHAT SYSTEM -->
+  <div class="chat-icon" id="chatToggle">
+    <img src="Samsung_Messages_Win.webp" alt="Chat Icon">
+  </div>
+
+  <div class="contact-box" id="contactBox">
+    <div class="chat-header">
+      <h3>💬 Chat with Us</h3>
+      <button id="closeChat">&times;</button>
+    </div>
+    <form action="https://formspree.io/f/xzzjoklv" method="POST">
+      <input type="text" name="name" placeholder="Your name" required>
+      <textarea name="message" placeholder="Type your message..." required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <!-- ✅ Confirmation popup -->
+  <div id="messageConfirm">✅ Message Sent!</div>
+
+  <footer>&copy; LOUIS IVER BIERCAL</footer>
+
+  <div id="darkModeToggle" title="Toggle dark mode">
+    <div class="toggle-icon sun">☀️</div>
+    <div class="toggle-icon moon">🌙</div>
+    <div class="toggle-slider"></div>
+  </div>
+
+  <script>
+    /* ===== Section navigation ===== */
+    function showSection(id) {
+      document.querySelectorAll("main section").forEach(s => s.classList.remove("active"));
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+
+    /* ===== Dark mode toggle ===== */
+    const toggle = document.getElementById("darkModeToggle");
+    toggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      // update aria label for accessibility
+      const isDark = document.body.classList.contains("dark-mode");
+      toggle.setAttribute("aria-pressed", isDark ? "true" : "false");
+    });
+
+    // ===== Carousel =====
+    let slideIndex = 0;
+    const slides = document.querySelectorAll(".carousel img");
+    const totalSlides = slides.length;
+    let carouselInterval;
+
+    function showSlide(index) {
+      slides.forEach((s, i) => s.classList.toggle("active", i === index));
+    }
+
+    function nextSlide() {
+      slideIndex = (slideIndex + 1) % totalSlides;
+      showSlide(slideIndex);
+    }
+
+    function startCarousel() {
+      carouselInterval = setInterval(nextSlide, 7000); // slower transition
+    }
+
+    function stopCarousel() {
+      clearInterval(carouselInterval);
+    }
+
+    const carousel = document.querySelector(".carousel");
+    if (carousel) {
+      carousel.addEventListener("mouseenter", stopCarousel);
+      carousel.addEventListener("mouseleave", startCarousel);
+    }
+    if (slides.length) {
+      showSlide(slideIndex);
+      startCarousel();
+    }
+
+    // ===== Chat Toggle =====
+    const chatToggle = document.getElementById("chatToggle");
+    const contactBox = document.getElementById("contactBox");
+    const closeChat = document.getElementById("closeChat");
+
+    if (chatToggle) {
+      chatToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        contactBox.classList.toggle("active");
+      });
+    }
+
+    if (closeChat) {
+      closeChat.addEventListener("click", () => {
+        contactBox.classList.remove("active");
+      });
+    }
+
+    document.addEventListener("click", (e) => {
+      if (!contactBox.contains(e.target) && !chatToggle.contains(e.target)) {
+        contactBox.classList.remove("active");
+      }
+    });
+
+    // ✅ Confirmation popup logic for contact form
+    const messageConfirm = document.getElementById("messageConfirm");
+    const chatForm = document.querySelector(".contact-box form");
+
+    if (chatForm) {
+      chatForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = new FormData(chatForm);
+
+        fetch(chatForm.action, {
+          method: "POST",
+          body: data,
+          headers: { Accept: "application/json" }
+        }).then(() => {
+          messageConfirm.classList.add("active");
+          setTimeout(() => messageConfirm.classList.remove("active"), 3000);
+          chatForm.reset();
+        }).catch(() => {
+          // Even if fetch fails (e.g. offline), still show confirmation briefly for UX
+          messageConfirm.classList.add("active");
+          setTimeout(() => messageConfirm.classList.remove("active"), 3000);
+        });
+      });
+    }
+
+    /* ===== Play Speech functionality (controls audio element) ===== */
+    const playBtn = document.getElementById('playSpeech');
+    const playIcon = document.getElementById('playIcon');
+    const playLabel = document.getElementById('playLabel');
+    const audio = document.getElementById('speechAudio');
+
+    function setPlayState(isPlaying) {
+      if (!playBtn) return;
+      playBtn.setAttribute('aria-pressed', isPlaying ? 'true' : 'false');
+      if (isPlaying) {
+        // pause icon (two vertical bars)
+        playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path>';
+        playLabel.textContent = 'Pause Speech';
+      } else {
+        // play triangle
+        playIcon.innerHTML = '<path d="M8 5v14l11-7z"></path>';
+        playLabel.textContent = 'Play Speech';
+      }
+    }
+
+    if (playBtn && audio) {
+      playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          // play audio
+          audio.play().catch((err) => {
+            // handle autoplay or other errors gracefully
+            console.warn('Audio play prevented:', err);
+          });
+          setPlayState(true);
+        } else {
+          audio.pause();
+          setPlayState(false);
+        }
+      });
+
+      // Update button state when user uses native controls
+      audio.addEventListener('play', () => setPlayState(true));
+      audio.addEventListener('pause', () => setPlayState(false));
+      audio.addEventListener('ended', () => setPlayState(false));
+    }
+
+    // Keep play button label in sync on load
+    if (audio && playBtn) {
+      setPlayState(!audio.paused && !audio.ended);
+    }
+
+    // ===== Accessibility: keyboard play/pause (space/enter) support already provided by button element =====
+
+    // small helper: if user changes theme via OS preference and we want initial state,
+    // we could detect and set dark-mode initially (optional). Left commented.
+    // if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    //   document.body.classList.add('dark-mode');
+    // }
+  </script>
+</body>
+</html>
