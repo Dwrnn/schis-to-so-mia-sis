@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Schistosomiasis</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
 
   <style>
     /* ===== COLOR PALETTE ===== */
@@ -20,12 +20,17 @@
       --dark-text: #E0E0E0;
       --accent-dark: #ff9800;
       --accent-dark-2: #ffb74d;
+      --beige: #F0E491;
+      --green1: #BBC863;
+      --green2: #658C58;
+      --green3: #31694E;
+      --green4: #1C402E;
     }
 
     * { box-sizing: border-box; }
 
     body {
-      font-family: 'Roboto', sans-serif;
+      font-family: lato, sans-serif;
       background-color: var(--gray);
       color: var(--brown);
       margin: 0;
@@ -35,11 +40,12 @@
 
     /* ===== HEADER ===== */
     header {
-      background: linear-gradient(90deg, var(--blue), #1e88e5);
+      background: linear-gradient(90deg, var(--blue), #658c58);
       color: var(--white);
       padding: 20px 0;
       text-align: center;
-      position: sticky;
+      font-family: lato, sans-serif;
+      position; sticky;
       top: 0;
       z-index: 10;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1);
@@ -449,7 +455,7 @@
 
     /* ===== FOOTER ===== */
     footer {
-      background-color: var(--brown);
+      background-color: var(--green2);
       color: var(--white);
       text-align: center;
       padding: 15px;
@@ -465,7 +471,7 @@
       color: var(--dark-text);
     }
 
-    body.dark-mode header { background: linear-gradient(90deg, #0d47a1, #1565c0); }
+    body.dark-mode header { background: linear-gradient(90deg, #31694E, #31694E); }
 
     body.dark-mode main section {
       background-color: var(--dark-surface);
@@ -545,24 +551,24 @@
 </head>
 <body>
   <header>
-    <h1>arouch</h1>
+    <h1>S H E E S H t o s o m i a s i s</h1>
     <nav>
       <a href="#" onclick="showSection('home')">Home</a>
       <a href="#" onclick="showSection('members')">Members</a>
-      <a href="#" onclick="showSection('agendas')">Agendas</a>
-      <a href="#" onclick="showSection('speech')">Speech</a>
+      <a href="#" onclick="showSection('agendas')">Milestones</a>
+      <a href="#" onclick="showSection('speech')">Talumpati</a>
     </nav>
   </header>
 
   <main>
     <section id="home" class="active">
       <div class="carousel">
-        <img src="a.jpg" class="active" alt="Photo 1">
-        <img src="b.jpg" alt="Photo 2">
-        <img src="c.jpg" alt="Photo 3">
+        <img src="image.png" class="active" alt="Photo 1">
+        <img src="uod.png" alt="Photo 2">
+        <img src="rivef.png" alt="Photo 3">
       </div>
-      <h2>About Us</h2>
-      <p>Hope you guys can't learn stuff in here!</p>
+      <h2>Nilalaman</h2>
+      <p>Ang site na ito ay naglalaman ng mga impormasyon tungkol sa Schistosomiasis mula sa pagtuklas ng grupo tungkol sa sakit, pagtukoy sa mga sanhi at bunga nito, hanggang sa pagbuo ng proyekto na tinawag na SHEESHtosomiasis. Sa site na ito, makikita ang buong plano at proseso ng grupo sa pagbuo nng proyekto. Ang nasabing proyekto ay mayroong tatlong bahagi: ang seminar, clean-up drive, at ang pag po-post ng infographics online. Layunin ng grupo na maibahagi ang mga impormasyon para sa kaligtasan ng mga tao.</p>
       <!-- Explore button: kept onclick behaviour but modernized and with icon -->
       <button class="primary-btn explore-btn" onclick="showSection('members')" aria-label="Explore members">
         <!-- magnifying glass svg -->
@@ -574,10 +580,10 @@
     </section>
 
     <section id="members">
-      <h2>Meet Our Members</h2>
+      <h2>Meet Our  Members</h2>
       <div class="leader-card">
         <div class="member-card">
-          <img src="aw.png" alt="Leader">
+          <img src="vanee.png" alt="Leader">
           <h3>Shievanee Villaflores</h3>
           <p><strong>Role:</strong> Leader</p>
           <p>Leader ofc</p>
@@ -585,25 +591,25 @@
       </div>
       <div class="member-cards-grid">
         <div class="member-card">
-          <img src="aw.png" alt="Member 1">
+          <img src="jade.png" alt="Member 1">
           <h3>Jaderhian Morallo</h3>
           <p><strong>Role:</strong> Member</p>
           <p>Chucky</p>
         </div>
         <div class="member-card">
-          <img src="aw.png" alt="Member 2">
-          <h3>Louis Iver Biercal</h3>
+          <img src="iver.png" alt="Member 2">
+          <h3>Louis Iver De Leon Biercal</h3>
           <p><strong>Role:</strong> Member</p>
           <p>Albino</p>
         </div>
         <div class="member-card">
-          <img src="aw.png" alt="Member 3">
+          <img src="mikan.png" alt="Member 3">
           <h3>Mikan Anjel Rabe</h3>
           <p><strong>Role:</strong> Member</p>
           <p>Mike-e</p>
         </div>
         <div class="member-card">
-          <img src="aw.png" alt="Member 4">
+          <img src="gabe.png" alt="Member 4">
           <h3>Dranreb Broqueza</h3>
           <p><strong>Role:</strong> Member</p>
           <p>Tambay lang</p>
@@ -612,16 +618,20 @@
     </section>
 
     <section id="agendas">
-      <h2>Upcoming Agendas</h2>
+      <h2>MILESTONES</h2>
       <ul style="list-style:none;padding:0;">
-        <li style="background:var(--green);color:var(--white);padding:10px;margin:8px 0;border-radius:6px;">Agenda 1: </li>
+        <li style="background:var(--);color:var(--white);padding:10px;margin:8px 0;border-radius:6px;">Agenda 1: </li>
         <li style="background:var(--blue);color:var(--white);padding:10px;margin:8px 0;border-radius:6px;">Agenda 2: </li>
         <li style="background:var(--brown);color:var(--white);padding:10px;margin:8px 0;border-radius:6px;">Agenda 3: </li>
+                <li style="background:var(--brown);color:var(--white);padding:10px;margin:8px 0;border-radius:6px;">Agenda 4: </li>
+                        <li style="background:var(--brown);color:var(--white);padding:10px;margin:8px 0;border-radius:6px;">Agenda 5: </li>
+
+
       </ul>
     </section>
 
     <section id="speech">
-      <h2>Parang ayoko na</h2>
+      <h2>Talumpati</h2>
       <p>"May gusto ka nga ba sa iba?"</p>
       <!-- audio now has an id so the Play Speech button can control it -->
       <audio id="speechAudio" controls style="margin-top:20px;width:100%;border-radius:8px;">
@@ -660,7 +670,7 @@
   <!-- ✅ Confirmation popup -->
   <div id="messageConfirm">✅ Message Sent!</div>
 
-  <footer>&copy; LOUIS IVER BIERCAL</footer>
+  <footer>&copy; LOUIS IVER DE LEON BIERCAL</footer>
 
   <div id="darkModeToggle" title="Toggle dark mode">
     <div class="toggle-icon sun">☀️</div>
